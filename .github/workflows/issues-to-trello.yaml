@@ -3,10 +3,10 @@ name: Sample github action
 on:
   workflow_call:
     inputs:
-      trello_list_index:
+      trello_list_name:
         required: true
-        type: number
-        description: Index number of the list that should receive the Trello cards (1st list from the left = 1, 2nd list = 2, etc)
+        type: string
+        description: Name of the list that should receive the Trello cards
     secrets:
       trello_board_id:
         required: true
@@ -58,7 +58,7 @@ jobs:
   
       - name: Create Trello cards from Github issues
         env:
-          TRELLO_LIST_INDEX: ${{ inputs.trello_list_index }}
+          TRELLO_LIST_NAME: ${{ inputs.trello_list_name }}
           TRELLO_BOARD_ID: ${{ secrets.trello_board_id }}
           TRELLO_API_KEY: ${{ secrets.trello_api_key }}
           TRELLO_API_SECRET: ${{ secrets.trello_api_secret }}

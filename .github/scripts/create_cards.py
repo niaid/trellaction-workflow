@@ -13,7 +13,7 @@ client = TrelloClient(
 github_client = Github(os.getenv('REPO_TOKEN'))
 
 board_id = os.getenv('TRELLO_BOARD_ID')
-list_index = int(os.getenv('TRELLO_LIST_INDEX')) - 1
+list_name = os.getenv('TRELLO_LIST_NAME')
 github_event = os.getenv('GITHUB_EVENT_PATH')
 
 with open(github_event, "r") as event_file:
@@ -25,6 +25,14 @@ issue = repo.get_issue(number=issue_data["number"])
 
 if "security" in [label["name"] for label in issue_data["labels"]]:
     board = client.get_board(board_id)
+
+    # Get lists and match name to get list index.  If no matching list exists, error out
+    all_lists = board.list_lists()
+    list_index = next((index for index, tlist in enumerate(all_lists) if tlist.name == list_name), None)
+    if list_index is None:
+        print(f"Error: No list found with the name {list_name}")
+        exit(1)
+
     in_list = board.list_lists()[list_index]  # Get the list specified
 
     # Get all cards in the board, including those in the archive
