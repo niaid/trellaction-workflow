@@ -2,6 +2,12 @@ name: Sample github action
 
 on:
   workflow_call:
+    inputs:
+      branch_name:
+        required: false  
+        type: string
+        description: Name of the branch to checkout
+        default: 'main'  # Default to main unless some other branch is needed
     secrets:
       repo_token:
         required: true
@@ -16,6 +22,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: niaid/trellaction-workflow
+          ref: ${{ inputs.branch_name }}
 
       - name: Set up Python
         uses: actions/setup-python@v2
