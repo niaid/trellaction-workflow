@@ -14,7 +14,7 @@ on:
         description: Comma separated lists of labels to be added to issues which is then passed onto Trello cards
       priority_prefix:
         required: false
-        tupe: string
+        type: string
         description: Prefix to be added to priority labels, e.g. "Priority:".  Be sure to include any required punctuation.
     secrets:
       repo_token:
