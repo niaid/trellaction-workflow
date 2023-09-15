@@ -143,7 +143,7 @@ for alert in codescan_alerts:
     repo.create_issue(
       title=issue_title,
       body=f"{issue_body}\n\n[CodeQL Alert Link]({alert_url})",
-      labels=[severity_label] + custom_labels
+      labels=[severity_label] 
     )
     scan_created_issues.append(alert_id)
 
