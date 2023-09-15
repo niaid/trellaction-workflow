@@ -80,7 +80,7 @@ if "security" in [label["name"] for label in issue_data["labels"]]:
             # Update the existing card
             card.set_description(desc)
             # Get current labels on the card
-            current_labels_on_card = card.get_labels()
+            current_labels_on_card = card.labels
             current_label_names_on_card = [label.name for label in current_labels_on_card]
 
             # Add labels to the card
