@@ -41,14 +41,26 @@ if "security" in [label["name"] for label in issue_data["labels"]]:
 
     # Get all labels in the board
     existing_labels = board.get_labels(limit=None)
+    existing_label_names = [label.name for label in existing_labels]
 
-    # Prepare labels for the card
+    # Prepare labels for the card and check for missing labels in Trello
     card_labels = []
+    missing_labels = []
+
     for issue_label in issue_data["labels"]:
+        match_found = False
         for trello_label in existing_labels:
-            # Check if a label with the same name exists in Trello
             if trello_label.name == issue_label["name"]:
                 card_labels.append(trello_label)
+                match_found = True
+                break
+        if not match_found:
+            missing_labels.append(issue_label["name"])
+
+    # Report the missing labels
+    if missing_labels:
+        print(f"Warning: The following labels from the issue do not exist in Trello: {', '.join(missing_labels)}")
+
 
     issue_link = issue_data["html_url"]
     desc = f'{issue_data["body"]}\n\n[Link to GitHub Issue]({issue_link})'
@@ -67,9 +79,14 @@ if "security" in [label["name"] for label in issue_data["labels"]]:
             print("Card already open. Updating description...")
             # Update the existing card
             card.set_description(desc)
+            # Get current labels on the card
+            current_labels_on_card = card.get_labels()
+            current_label_names_on_card = [label.name for label in current_labels_on_card]
+
             # Add labels to the card
             for label in card_labels:
-                card.add_label(label)
+                if label.name not in current_label_names_on_card:
+                    card.add_label(label)
             trello_card_link = card.url
             break
     else:
