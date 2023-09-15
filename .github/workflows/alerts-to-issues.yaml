@@ -8,6 +8,14 @@ on:
         type: string
         description: Name of the branch to checkout
         default: 'main'  # Default to main unless some other branch is needed
+      custom_labels:
+        required: false
+        type: string
+        description: Comma separated lists of labels to be added to issues which is then passed onto Trello cards
+      priority_prefix:
+        required: false
+        tupe: string
+        description: Prefix to be added to priority labels, e.g. "Priority:".  Be sure to include any required punctuation.
     secrets:
       repo_token:
         required: true
