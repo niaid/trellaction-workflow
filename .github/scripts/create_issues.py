@@ -144,10 +144,11 @@ for alert in codescan_alerts:
   else:
     # Create a new issue
     alert_url = f"https://github.com/{owner}/{repo_name}/security/code-scanning/{alert_id}"
+    print(f"Severity: {severity_label} Labels: {custom_labels}")
     repo.create_issue(
       title=issue_title,
       body=f"{issue_body}\n\n[CodeQL Alert Link]({alert_url})",
-      labels=[severity_label] 
+      labels=[severity_label] + custom_labels
     )
     scan_created_issues.append(alert_id)
 
