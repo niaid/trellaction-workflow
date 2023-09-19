@@ -53,4 +53,6 @@ jobs:
       - name: Create Github issues from Dependabot alerts
         env:
           REPO_TOKEN: ${{ secrets.repo_token }}
+          CUSTOM_LABELS: ${{ inputs.custom_labels }}
+          PRIORITY_PREFIX: ${{ inputs.priority_prefix }}
         run: python .github/scripts/create_issues.py
