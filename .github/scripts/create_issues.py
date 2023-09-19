@@ -42,7 +42,7 @@ data = response.json()
 alerts = data["data"]["repository"]["vulnerabilityAlerts"]["nodes"]
 
 custom_labels_env = os.getenv("CUSTOM_LABELS", "")
-custom_labels = [label.strip() for label in os.getenv("CUSTOM_LABELS", "").split(",")]
+custom_labels = [label.strip() for label in os.getenv("CUSTOM_LABELS", "").split(",")] + ["Trellaction"]
 print(custom_labels_env)
 print(custom_labels)
 severity_prefix = os.getenv("PRIORITY_PREFIX", "").strip()

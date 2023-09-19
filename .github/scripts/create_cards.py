@@ -23,7 +23,7 @@ issue_data = event["issue"]
 repo = github_client.get_repo(event["repository"]["full_name"])
 issue = repo.get_issue(number=issue_data["number"])
 
-if "security" in [label["name"] for label in issue_data["labels"]]:
+if "Trellaction" in [label["name"] for label in issue_data["labels"]]:
     board = client.get_board(board_id)
 
     # Get lists and match name to get list index.  If no matching list exists, error out
