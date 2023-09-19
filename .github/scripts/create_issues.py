@@ -45,7 +45,7 @@ custom_labels_env = os.getenv("CUSTOM_LABELS", "")
 custom_labels = [label.strip() for label in os.getenv("CUSTOM_LABELS", "").split(",")]
 print(custom_labels_env)
 print(custom_labels)
-severity_prefix = os.getenv("SEVERITY_PREFIX", "").strip()
+severity_prefix = os.getenv("PRIORITY_PREFIX", "").strip()
 
 dep_created_issues = []
 dep_skipped_issues = []
@@ -82,6 +82,7 @@ for alert in alerts:
   else:
     # Create a new issue
     alert_url = f"https://github.com/{owner}/{repo_name}/security/dependabot/{alert_id}"
+    print(f"Severity: {severity_label} Labels: {custom_labels}")
     repo.create_issue(
       title=issue_title,
       body=f"{description}\n\n[Dependabot Alert Link]({alert_url})",
