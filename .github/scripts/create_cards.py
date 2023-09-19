@@ -44,6 +44,7 @@ if "security" in [label["name"] for label in issue_data["labels"]]:
     existing_label_names = [label.name for label in existing_labels]
 
     # Prepare labels for the card and check for missing labels in Trello
+    print("Preparing labels...")
     card_labels = []
     missing_labels = []
 
@@ -68,6 +69,7 @@ if "security" in [label["name"] for label in issue_data["labels"]]:
     # Including the repo name in the card's title
     card_title = f'{event["repository"]["full_name"]}: {issue_data["title"]}'
 
+    print("Checking cards...")
     # Check if a card with the same title exists
     for card in existing_cards:
         if card.name == card_title:
